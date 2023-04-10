@@ -25,13 +25,7 @@ jobs:
           cache: maven
       - name: Build with Maven
         run: mvn clean test
-      - name: Create Staging directory
-        run: mkdir staging && cp target/*.jar staging
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: Package
-          path: staging
+
   job_2:
     name: Build Docker Image
     needs: job_1
