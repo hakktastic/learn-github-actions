@@ -37,4 +37,5 @@ jobs:
     needs: job_1
     runs-on: ubuntu-latest
     steps:
-      - run: echo "${{ github.actor }} is testing out GitHub Actions 🚀"
+      - name: 🚀 Build the Docker image
+        run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
