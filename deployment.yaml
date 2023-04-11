@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lga-deployment
+  namespace: default
+  labels:
+    app: lga
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lga
+  template:
+    metadata:
+      labels:
+        app: lga
+    spec:
+      containers:
+        - name: lga
+          image: hakktastic/learn-github-actions:0.0.2
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              memory: "512Mi"
+            limits:
+              memory: "512Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lga-service
+  namespace: default
+  labels:
+    app: lga
+spec:
+  selector:
+    app: lga
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: NodePort
