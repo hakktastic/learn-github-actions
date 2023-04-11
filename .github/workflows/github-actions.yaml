@@ -1,6 +1,8 @@
 name: 🚀 CI/CD with Maven and Docker
 
 on: [push]
+permissions:
+  packages: write
 
 jobs:
   build:
