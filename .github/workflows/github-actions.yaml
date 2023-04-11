@@ -3,7 +3,7 @@ name: 🚀 CI/CD with Maven and Docker
 on: [push]
 permissions:
   packages: write
-  content: read
+  contents: read
 jobs:
   build:
     name: Build with Maven and Deploy with Docker
