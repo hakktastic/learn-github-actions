@@ -8,6 +8,10 @@ jobs:
   build:
     name: Build with Maven and Deploy with Docker
     runs-on: ubuntu-latest
+    permission:
+      contents: read
+      security-events: write
+      actions: read-only
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -35,3 +39,15 @@ jobs:
           context: .
           platforms: 'linux/amd64,linux/arm64'
           tags: hakktastic/learn-github-actions:0.0.2
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@7b7aa264d83dc58691451798b4d117d53d21edfe
+        with:
+          image-ref: 'docker.io/hakktastic/learn-github-actions:0.0.2
+          format: 'template'
+          template: '@/contrib/sarif.tpl'
+          output: 'trivy-results.sarif'
+          severity: 'CRITICAL,HIGH'
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: 'trivy-results.sarif'
