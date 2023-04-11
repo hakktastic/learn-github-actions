@@ -18,7 +18,7 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Test and build with Maven
-        run: mvn clean package -dSkipTests
+        run: mvn clean package
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Setup Docker buildx
