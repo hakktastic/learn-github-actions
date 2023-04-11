@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: lga-service
-  namespace: default
+  namespace: cicd
   labels:
     app: lga
 spec:

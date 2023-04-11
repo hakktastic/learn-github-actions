@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: lga-deployment
-  namespace: default
+  namespace: cicd
   labels:
     app: lga
 spec:
