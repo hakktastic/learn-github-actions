@@ -21,6 +21,8 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
+      - name: Test and build with Maven
+        run: mvn clean package
       - name: Run Snyk to check for vulnerabilities
         uses: actions/checkout@master
         # uses: snyk/actions/maven@master
@@ -28,8 +30,12 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           command: code test
-      - name: Test and build with Maven
-        run: mvn clean package
+      - name: Increment Application Version
+        run: |
+          ./mvnw build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion} versions:commit
+          git add .
+          git commit -m "update version in pom.xml to ${parsedVersion}"
+          git push
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Setup Docker buildx
@@ -45,11 +51,11 @@ jobs:
           push: true
           context: .
           platforms: 'linux/amd64,linux/arm64'
-          tags: hakktastic/learn-github-actions:0.0.3
+          tags: hakktastic/learn-github-actions:0.0.4
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@7b7aa264d83dc58691451798b4d117d53d21edfe
         with:
-          image-ref: 'docker.io/hakktastic/learn-github-actions:0.0.3'
+          image-ref: 'docker.io/hakktastic/learn-github-actions:0.0.4'
           format: 'template'
           template: '@/contrib/sarif.tpl'
           output: 'trivy-results.sarif'
