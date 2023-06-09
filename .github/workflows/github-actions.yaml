@@ -35,6 +35,14 @@ jobs:
         with:
           command: code test
 
+      # x https://github.com/marketplace/actions/java-maven-release
+      - name: Increment Maven Patch Number
+        uses: qcastel/github-actions-maven-release@master
+        with:
+          version-major: false
+          version-minor: false
+          version-patch: true
+
       # Maven
       - name: Get project version
         run: |
