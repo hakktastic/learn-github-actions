@@ -21,8 +21,6 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
-      - name: Test and build with Maven
-        run: mvn clean package
       - name: Run Snyk to check for vulnerabilities
         uses: actions/checkout@master
         # uses: snyk/actions/maven@master
@@ -30,6 +28,8 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           command: code test
+      - name: Test and build with Maven
+        run: mvn clean package
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Setup Docker buildx
@@ -42,11 +42,10 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
-          version: v0.7.0
           push: true
           context: .
           platforms: 'linux/amd64,linux/arm64'
-          tags: 'hakktastic/learn-github-actions:0.0.3'
+          tags: hakktastic/learn-github-actions:0.0.3
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@7b7aa264d83dc58691451798b4d117d53d21edfe
         with:
