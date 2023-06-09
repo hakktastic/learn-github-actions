@@ -21,6 +21,13 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
+      - name: Run Snyk to check for vulnerabilities
+        uses: actions/checkout@master
+        # uses: snyk/actions/maven@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: code test
       - name: Test and build with Maven
         run: mvn clean package
       - name: Set up QEMU
