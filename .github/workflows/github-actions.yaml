@@ -45,7 +45,7 @@ jobs:
           push: true
           context: .
           platforms: 'linux/amd64,linux/arm64'
-          tags: 'hakktastic/learn-github-actions:0.0.3'
+          tags: hakktastic/learn-github-actions:0.0.3
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@7b7aa264d83dc58691451798b4d117d53d21edfe
         with:
