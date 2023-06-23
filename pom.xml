@@ -17,7 +17,7 @@
 	<!-- https://maven.apache.org/scm/git.html -->
 	<scm>
 		<developerConnection>scm:git:https://github.com/hakktastic/learn-github-actions.git</developerConnection>
-    <tag>0.0.2</tag>
+		<tag>0.0.2</tag>
   </scm>
 
 	<properties>
