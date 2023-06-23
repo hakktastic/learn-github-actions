@@ -31,5 +31,6 @@ jobs:
           git config --global user.name "hakktastic"
           mvn versions:set -DnewVersion=0.0.2
           mvn versions:commit
+          git commit -m "set version to 0.0.2"
           git push
         # mvn release:clean release:prepare -DskipTests=false
