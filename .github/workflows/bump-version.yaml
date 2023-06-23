@@ -29,4 +29,7 @@ jobs:
         run: |
           git config --global user.email "hakktastic@gmail.com"
           git config --global user.name "hakktastic"
-          mvn release:clean release:prepare -DskipTests=true
+          mvn versions:set -DnewVersion=0.0.2
+          mvn versions:commit
+          git push
+        # mvn release:clean release:prepare -DskipTests=false
