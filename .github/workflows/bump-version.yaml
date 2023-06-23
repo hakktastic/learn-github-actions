@@ -27,8 +27,8 @@ jobs:
       - name: bump version
         #run: mvn --batch-mode build-helper:parse-version versions:set -DnewVersion=${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.nextIncrementalVersion}-SNAPSHOT versions:commit
         run: |
-          mvn versions:set -DnewVersion=0.0.2-SNAPSHOT
-          mvn versions:commit
           git config --global user.email "hakktastic@gmail.com"
           git config --global user.name "hakktastic"
-          mvn release:clean release:prepare -DskipTests=false
+          mvn versions:set -DnewVersion=0.0.2
+          mvn versions:commit
+        # mvn release:clean release:prepare -DskipTests=false
