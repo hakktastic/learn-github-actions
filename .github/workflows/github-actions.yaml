@@ -35,7 +35,10 @@ jobs:
         with:
           command: code test
 
-      # Maven
+      # Increment POM version
+      - name: Increment Project Version
+        run: |
+          mvn --batch-mode build-helper:parse-version versions:set -DnewVersion=${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.nextIncrementalVersion}-SNAPSHOT versions:commit      # Maven
       - name: Get project version
         run: |
           echo "POM_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
