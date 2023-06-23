@@ -1,9 +1,5 @@
 name: Bump SCM versions
-on:
-  push:
-    branches:
-      - '!master'
-      - '!releases/**'
+on: [push]
 permissions: write-all
 jobs:
   build:
