@@ -1,6 +1,9 @@
 name: 🚀 CI/CD with Maven and Docker
 
-on: [push]
+on:
+   push:
+     branches:
+       - main
 permissions:
   packages: write
   contents: read
