@@ -29,4 +29,6 @@ jobs:
         run: |
           mvn versions:set -DnewVersion=0.0.2-SNAPSHOT
           mvn versions:commit
+          git config --global user.email "hakktastic@gmail.com"
+          git config --global user.name "hakktastic"
           mvn release:clean release:prepare release:perform
