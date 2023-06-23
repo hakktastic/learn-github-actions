@@ -10,7 +10,7 @@
 
 	<groupId>nl.hakktastic</groupId>
 	<artifactId>learn.github.actions</artifactId>
-	<version>0.0.3-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>learn.github.actions</name>
 	<description>Spring Boot project for learning GitHub Actions</description>
 
