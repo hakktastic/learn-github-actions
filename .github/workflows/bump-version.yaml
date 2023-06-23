@@ -21,3 +21,4 @@ jobs:
         run: |
           mvn versions:set -DnewVersion=0.0.2-SNAPSHOT
           mvn versions:commit
+          mvn release:clean release:prepare release:perform
