@@ -1,0 +1,18 @@
+name: Bump SCM versions
+on:
+  push:
+    branches:
+      - '!master'
+      - '!releases/**'
+permissions: write-all
+jobs:
+  build:
+    name: Increment version
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+      actions: read
+    steps:
+      - name: bump version
+        run: mvn clean package
