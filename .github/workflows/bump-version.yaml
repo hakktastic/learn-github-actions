@@ -1,4 +1,4 @@
-name: 👊🏻 Bump SCM version 👊🏻
+name: 👊🏻 Bump SCM version
 
 on: [push]
 
@@ -29,6 +29,4 @@ jobs:
         run: |
           git config --global user.email "hakktastic@gmail.com"
           git config --global user.name "hakktastic"
-        # mvn versions:set -DnewVersion=0.0.2
-        # mvn versions:commit
           mvn release:clean release:prepare -DskipTests=true
