@@ -10,14 +10,13 @@
 
 	<groupId>nl.hakktastic</groupId>
 	<artifactId>learn.github.actions</artifactId>
-	<version>0.0.2</version>
+	<version>0.0.1</version>
 	<name>learn.github.actions</name>
 	<description>Spring Boot project for learning GitHub Actions</description>
 
 	<!-- https://maven.apache.org/scm/git.html -->
 	<scm>
 		<developerConnection>scm:git:https://github.com/hakktastic/learn-github-actions.git</developerConnection>
-		<tag>0.0.2</tag>
   </scm>
 
 	<properties>
@@ -100,7 +99,6 @@
 				<artifactId>maven-release-plugin</artifactId>
 				<version>3.0.1</version>
 				<configuration>
-					<tagNameFormat>@{project.version}</tagNameFormat>
 					<checkModificationExcludes>
 						<checkModificationExclude>pom.xml</checkModificationExclude>
 					</checkModificationExcludes>
