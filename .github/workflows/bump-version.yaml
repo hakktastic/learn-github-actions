@@ -28,4 +28,4 @@ jobs:
         run: |
           git config --global user.email "hakktastic@gmail.com"
           git config --global user.name "hakktastic"
-          mvn release:prepare
+          mvn release:prepare remoteTagging=false
