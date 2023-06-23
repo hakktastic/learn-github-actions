@@ -28,4 +28,6 @@ jobs:
         run: |
           git config --global user.email "hakktastic@gmail.com"
           git config --global user.name "hakktastic"
-          mvn release:prepare -DremoteTagging=false -DignoreSnapshots=true -DscmDevelopmentCommitComment="bump version"
+          mvn versions:set -DnewVersion=${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}-SNAPSHOT 
+          mvn versions:commit
+          mvn release:prepare -DremoteTagging=false -DscmDevelopmentCommitComment="bump version"
