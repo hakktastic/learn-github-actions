@@ -31,4 +31,4 @@ jobs:
           mvn versions:commit
           git config --global user.email "hakktastic@gmail.com"
           git config --global user.name "hakktastic"
-          mvn release:clean release:prepare release:perform
+          mvn release:clean release:prepare -DskipTests=false
