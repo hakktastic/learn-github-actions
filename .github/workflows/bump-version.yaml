@@ -9,10 +9,7 @@ jobs:
   build:
     name: Increment version
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      security-events: write
-      actions: read
+    permissions: write-all
     steps:
       - name: bump version
         run: mvn clean package
