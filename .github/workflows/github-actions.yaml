@@ -1,9 +1,11 @@
 name: 🚀 CI with Maven and Docker
 
 on:
-   push:
-     branches:
-       - main
+  [push]
+# push only for main branch
+#   push:
+#     branches:
+#       - main
 permissions:
   packages: write
   contents: read
