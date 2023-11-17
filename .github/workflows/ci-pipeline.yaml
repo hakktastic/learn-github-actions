@@ -1,4 +1,4 @@
-name: 🚀 CI with Maven and Docker
+name: 🚀 CI pipeline
 
 on:
   [push]
