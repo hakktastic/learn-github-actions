@@ -10,7 +10,7 @@
 
 	<groupId>nl.hakktastic</groupId>
 	<artifactId>learn.github.actions</artifactId>
-	<version>1.0</version>
+	<version>0.0.4</version>
 	<name>learn.github.actions</name>
 	<description>Spring Boot project for learning GitHub Actions</description>
 
@@ -18,7 +18,7 @@
 	<scm>
 		<developerConnection>scm:git:https://github.com/hakktastic/learn-github-actions.git</developerConnection>
     	<tag>1.0</tag>
-  </scm>
+	</scm>
 
 	<properties>
 		<java.version>17</java.version>
