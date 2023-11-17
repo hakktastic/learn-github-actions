@@ -1,4 +1,4 @@
-name: 🚀 CI/CD with Maven and Docker
+name: 🚀 CI with Maven and Docker
 
 on:
    push:
