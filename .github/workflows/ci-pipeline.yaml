@@ -40,9 +40,20 @@ jobs:
         with:
           command: code test
 
-      # Maven
-      - name: Test and build with Maven
+      # Maven test
+      - name: Maven test
         run: mvn clean package
+
+      # Increment POM version
+
+      # Maven build
+      - name: Maven build
+        run: mvn clean package
+
+      # Maven get project version
+      - name: Get project version
+        run: |
+          echo "POM_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
 
       # https://github.com/marketplace/actions/build-and-push-docker-images
       - name: Set up QEMU
