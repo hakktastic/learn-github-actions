@@ -65,6 +65,19 @@ jobs:
           platforms: 'linux/amd64,linux/arm64'
           tags: hakktastic/learn-github-actions:${{ env.POM_VERSION }}
 
+      # Postman tests
+      - name: Install Postman CLI
+        uses: actions/checkout@v3
+        run: |
+          curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
+
+      - name: Login to Postman CLI
+        run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
+
+      - name: Run API tests
+        run: |
+          postman collection run "${{ github.workspace }}/postman/collections/collections.json" --integration-id "153425-${{ github.run_id }}"
+
       # https://github.com/marketplace/actions/aqua-security-trivy
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@7b7aa264d83dc58691451798b4d117d53d21edfe
