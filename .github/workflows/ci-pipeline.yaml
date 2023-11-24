@@ -85,9 +85,10 @@ jobs:
         with:
           sarif_file: 'trivy-results.sarif'
 
+      # https://github.com/marketplace/actions/update-k8s-image
       - name: Update K8S Image Tag
         uses: Charlyzzz/update-k8s-image@v1.7.1
         with:
           manifest-path: deployment.yml
           new-image-tag: ${{ env.IMAGE_TAG }}
-          name: learn-github-actions
+          container-name: learn-github-actions
