@@ -89,11 +89,14 @@ jobs:
       - name: update image tag in k8s deployment resource
         uses: mikefarah/yq@master
         with:
-          cmd: yq -i '.spec.template.spec.containers[0].image="hakktastic/learn-github-actions:${{ env.IMAGE_TAG }}"' ./deployment/deployment.yml
+          cmd:
+            yq -i '.spec.template.spec.containers[0].image="hakktastic/learn-github-actions:${{ env.IMAGE_TAG }}"' ./deployment/deployment.yml
+            git commit -a -m "update image tag to version ${{ env.IMAGE_TAG }}"
+
 
       # https://github.com/marketplace/actions/git-auto-commit
-      - name: Git auto-commit k8s resource updates
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-         commit_message: "update image tag to version ${{ env.IMAGE_TAG }}"
+#      - name: Git auto-commit k8s resource updates
+#        uses: stefanzweifel/git-auto-commit-action@v5
+#        with:
+#         commit_message: "update image tag to version ${{ env.IMAGE_TAG }}"
           
