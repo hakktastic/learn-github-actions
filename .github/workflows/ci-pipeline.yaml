@@ -41,9 +41,6 @@ jobs:
           command: code test
 
       # Maven
-      - name: Get project version
-        run: |
-          echo "POM_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
       - name: Test and build with Maven
         run: mvn clean package
 
