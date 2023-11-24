@@ -51,7 +51,7 @@ jobs:
       # generate image tag
       - name: Generate build number
         run: |
-          echo "IMAGE_TAG=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)-$(git describe)" >> $GITHUB_ENV
+          echo "IMAGE_TAG=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)-$(git describe --always)" >> $GITHUB_ENV
 
       # https://github.com/marketplace/actions/build-and-push-docker-images
       - name: Set up QEMU
