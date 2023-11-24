@@ -44,16 +44,14 @@ jobs:
       - name: Maven test
         run: mvn clean test
 
-      # Increment POM version
-
       # Maven build
       - name: Maven build
         run: mvn clean package -DskipTests
 
-      # Maven get project version
-      - name: Get project version
+      # generate image tag
+      - name: Generate build number
         run: |
-          echo "POM_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+          echo "IMAGE_TAG=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)-$(git describe)" >> $GITHUB_ENV
 
       # https://github.com/marketplace/actions/build-and-push-docker-images
       - name: Set up QEMU
@@ -71,13 +69,13 @@ jobs:
           push: true
           context: .
           platforms: 'linux/amd64,linux/arm64'
-          tags: hakktastic/learn-github-actions:${{ env.POM_VERSION }}
+          tags: hakktastic/learn-github-actions:${{ env.IMAGE_TAG }}
 
       # https://github.com/marketplace/actions/aqua-security-trivy
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@7b7aa264d83dc58691451798b4d117d53d21edfe
         with:
-          image-ref: 'docker.io/hakktastic/learn-github-actions:${{ env.POM_VERSION }}'
+          image-ref: 'docker.io/hakktastic/learn-github-actions:${{ env.IMAGE_TAG }}'
           format: 'template'
           template: '@/contrib/sarif.tpl'
           output: 'trivy-results.sarif'
