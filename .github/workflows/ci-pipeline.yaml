@@ -66,16 +66,17 @@ jobs:
           tags: hakktastic/learn-github-actions:${{ env.POM_VERSION }}
 
       # Postman tests
-      - name: Install Postman CLI
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 18.12.0
+          registry-url: https://registry.npmjs.org/
+      - name: Install newman
+        run: npm install -g newman
+      - name: Run the API and Postman's tests
         run: |
-          curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
-
-      - name: Login to Postman CLI
-        run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
-
-      - name: Run API tests
-        run: |
-          postman collection run "${{ github.workspace }}/postman/collections/collections.json" -e "21175580-2357b5da-8c04-47c9-80c5-fbbf0ee18999" --integration-id "153425-${{ github.run_id }}"
+          newman run "postman/collections/New Collection.postman_collection.json" -e "postman/environments/localhost.postman_environment.json"
+      
 
       # https://github.com/marketplace/actions/aqua-security-trivy
       - name: Run Trivy vulnerability scanner
