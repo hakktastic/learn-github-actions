@@ -85,6 +85,10 @@ jobs:
         with:
           sarif_file: 'trivy-results.sarif'
 
+      - name: test
+        run: |
+          ls -l
+
       # https://github.com/marketplace/actions/update-k8s-image
       - name: Update K8S Image Tag
         uses: Charlyzzz/update-k8s-image@v1.7.1
@@ -92,3 +96,6 @@ jobs:
           manifest-path: ./deployment.yml
           new-image-tag: ${{ env.IMAGE_TAG }}
           container-name: learn-github-actions
+
+      - run: |
+          echo "Updated container image tag from ${{ steps.update-image.outputs.old-image-tag }} to ${{ env.IMAGE_TAG }}"
