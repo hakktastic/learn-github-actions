@@ -42,13 +42,13 @@ jobs:
 
       # Maven test
       - name: Maven test
-        run: mvn clean package
+        run: mvn clean test
 
       # Increment POM version
 
       # Maven build
       - name: Maven build
-        run: mvn clean package
+        run: mvn clean package -DskipTests
 
       # Maven get project version
       - name: Get project version
