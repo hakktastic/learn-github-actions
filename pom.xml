@@ -10,14 +10,9 @@
 
 	<groupId>nl.hakktastic</groupId>
 	<artifactId>learn.github.actions</artifactId>
-	<version>0.0.4</version>
+	<version>0.0.1</version>
 	<name>learn.github.actions</name>
 	<description>Spring Boot project for learning GitHub Actions</description>
-
-	<!-- https://maven.apache.org/scm/git.html -->
-	<scm>
-		<developerConnection>scm:git:https://github.com/hakktastic/learn-github-actions.git</developerConnection>
-	</scm>
 
 	<properties>
 		<java.version>17</java.version>
@@ -84,25 +79,6 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
-
-			<!-- http://www.mojohaus.org/buildnumber-maven-plugin/usage.html -->
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>buildnumber-maven-plugin</artifactId>
-				<version>3.1.0</version>
-				<executions>
-					<execution>
-						<phase>validate</phase>
-						<goals>
-							<goal>create</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<doCheck>false</doCheck>
-					<doUpdate>true</doUpdate>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>
