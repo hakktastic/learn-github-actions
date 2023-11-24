@@ -89,7 +89,7 @@ jobs:
       - name: update image tag in k8s deployment resource
         uses: mikefarah/yq@master
         with:
-          cmd: yq -i '.spec.template.spec.containers[0].image="hakktastic/learn-github-actions:${{ env.IMAGE_TAG }}"' deployment.yml
+          cmd: yq -i '.spec.template.spec.containers[0].image="hakktastic/learn-github-actions:${{ env.IMAGE_TAG }}"' ./deployment/deployment.yml
 
       - name: commit change to git
         run: |  
