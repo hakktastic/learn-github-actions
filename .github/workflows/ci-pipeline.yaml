@@ -84,3 +84,7 @@ jobs:
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: 'trivy-results.sarif'
+
+      - name: update image tag for k8s deployment
+        uses: mikefarah/yq@v4.40.3
+        run: |
