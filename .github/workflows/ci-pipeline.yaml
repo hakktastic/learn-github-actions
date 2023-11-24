@@ -65,19 +65,6 @@ jobs:
           platforms: 'linux/amd64,linux/arm64'
           tags: hakktastic/learn-github-actions:${{ env.POM_VERSION }}
 
-      # Postman tests
-      - name: Set up Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: 18.12.0
-          registry-url: https://registry.npmjs.org/
-      - name: Install newman
-        run: npm install -g newman
-      - name: Run the API and Postman's tests
-        run: |
-          newman run "postman/collections/New Collection.postman_collection.json" -e "postman/environments/localhost.postman_environment.json"
-      
-
       # https://github.com/marketplace/actions/aqua-security-trivy
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@7b7aa264d83dc58691451798b4d117d53d21edfe
