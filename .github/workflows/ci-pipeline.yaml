@@ -75,7 +75,7 @@ jobs:
 
       - name: Run API tests
         run: |
-          postman collection run "${{ github.workspace }}/postman/collections/collections.json" --integration-id "153425-${{ github.run_id }}"
+          postman collection run "${{ github.workspace }}/postman/collections/collections.json" -e "21175580-2357b5da-8c04-47c9-80c5-fbbf0ee18999" --integration-id "153425-${{ github.run_id }}"
 
       # https://github.com/marketplace/actions/aqua-security-trivy
       - name: Run Trivy vulnerability scanner
