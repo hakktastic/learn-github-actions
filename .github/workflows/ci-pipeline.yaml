@@ -1,0 +1,102 @@
+name: 🚀 CI pipeline
+
+on:
+  [push]
+# push only for main branch
+#   push:
+#     branches:
+#       - main
+permissions:
+  packages: write
+  contents: write
+  pages: write
+jobs:
+  build:
+    name: Build with Maven and Deploy with Docker
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      security-events: write
+      actions: write
+      pages: write
+    steps:
+
+      # https://github.com/marketplace/actions/checkout
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # https://github.com/marketplace/actions/setup-java-jdk
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      # https://github.com/marketplace/actions/snyk
+      - name: Run Snyk to check for vulnerabilities
+        uses: actions/checkout@master
+        # uses: snyk/actions/maven@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: code test
+
+      # Maven test
+      - name: Maven test
+        run: mvn clean test
+
+      # Maven build
+      - name: Maven build
+        run: mvn clean package -DskipTests
+
+      # generate image tag
+      - name: Generate build number
+        run: |
+          echo "IMAGE_TAG=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)-$(git describe --always)" >> $GITHUB_ENV
+
+      # https://github.com/marketplace/actions/build-and-push-docker-images
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      - name: Setup Docker buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME}}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          context: .
+          platforms: 'linux/amd64,linux/arm64'
+          tags: hakktastic/learn-github-actions:${{ env.IMAGE_TAG }}
+
+      # https://github.com/marketplace/actions/aqua-security-trivy
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@7b7aa264d83dc58691451798b4d117d53d21edfe
+        with:
+          image-ref: 'docker.io/hakktastic/learn-github-actions:${{ env.IMAGE_TAG }}'
+          format: 'template'
+          template: '@/contrib/sarif.tpl'
+          output: 'trivy-results.sarif'
+          severity: 'CRITICAL,HIGH'
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: 'trivy-results.sarif'
+
+      # https://github.com/marketplace/actions/yq-portable-yaml-processor
+      - name: update image tag in k8s deployment resource
+        uses: mikefarah/yq@master
+        with:
+          cmd:
+            yq -i '.spec.template.spec.containers[0].image="hakktastic/learn-github-actions:${{ env.IMAGE_TAG }}"' ./deployment/deployment.yml
+
+      # https://github.com/marketplace/actions/git-auto-commit
+      - name: Git auto-commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+         commit_message: "update image tag to version ${{ env.IMAGE_TAG }}"
+          
