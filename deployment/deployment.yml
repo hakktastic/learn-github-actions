@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: lga
-          image: hakktastic/learn-github-actions:0.0.1-0e902b7
+          image: hakktastic/learn-github-actions:0.0.1-12758b8
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
